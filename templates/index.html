@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight AI Web3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="logo">✈️ AI FLIGHT</div>
+            <h1>DỰ BÁO GIÁ VÉ <span class="neon-text">TƯƠNG LAI</span></h1>
+            <p>Hệ thống phân tích dữ liệu hàng không Real-time</p>
+            <p id="rateNote" class="small text-muted">{% if exchange_rate %}Tỷ giá tham chiếu: {{ exchange_rate }} (có thể thay đổi bằng biến môi trường <code>EXCHANGE_RATE_INR_TO_VND</code>){% endif %}</p>
+        </div>
+
+        <div class="main-content">
+            <form action="/predict" method="POST" class="glass-panel">
+                <div class="form-header">📡 THIẾT LẬP HÀNH TRÌNH</div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Hãng hàng không</label>
+                        <select name="airline">
+                            <option value="Vistara">Vistara</option>
+                            <option value="Air_India">Air India</option>
+                            <option value="Indigo">Indigo</option>
+                            <option value="GO_FIRST">GO FIRST</option>
+                            <option value="AirAsia">AirAsia</option>
+                            <option value="SpiceJet">SpiceJet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Hạng vé</label>
+                        <select name="flight_class">
+                            <option value="Economy">Phổ thông (Economy)</option>
+                            <option value="Business">Thương gia (Business)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Điểm xuất phát</label>
+                        <select name="source_city">
+                            <option value="Delhi">Delhi</option>
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chennai">Chennai</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Điểm đến</label>
+                        <select name="destination_city">
+                            <option value="Mumbai">Mumbai</option>
+                            <option value="Delhi">Delhi</option>
+                            <option value="Bangalore">Bangalore</option>
+                            <option value="Kolkata">Kolkata</option>
+                            <option value="Hyderabad">Hyderabad</option>
+                            <option value="Chennai">Chennai</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giờ cất cánh</label>
+                        <select name="departure_time">
+                            <option value="Morning">Sáng (Morning)</option>
+                            <option value="Early_Morning">Sáng sớm</option>
+                            <option value="Evening">Tối</option>
+                            <option value="Night">Đêm</option>
+                            <option value="Afternoon">Chiều</option>
+                            <option value="Late_Night">Đêm muộn</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Giờ hạ cánh</label>
+                        <select name="arrival_time">
+                            <option value="Night">Đêm</option>
+                            <option value="Evening">Tối</option>
+                            <option value="Morning">Sáng</option>
+                            <option value="Afternoon">Chiều</option>
+                            <option value="Early_Morning">Sáng sớm</option>
+                            <option value="Late_Night">Đêm muộn</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Số điểm dừng: <select name="stops" style="width: auto; display: inline-block; padding: 5px;">
+                            <option value="zero">Bay thẳng (0)</option>
+                            <option value="one">1 trạm dừng</option>
+                            <option value="two_or_more">2+ trạm dừng</option>
+                        </select></label>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Đặt trước bao nhiêu ngày? (<span id="daysDisplay">20</span> ngày)</label>
+                        <input type="range" name="days_left" min="1" max="50" value="20" class="slider" oninput="document.getElementById('daysDisplay').innerText = this.value">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>Thời gian bay dự kiến: <span id="durDisplay">2.5</span> giờ</label>
+                        <input type="number" name="duration" value="2.5" step="0.5" min="0.5" class="input-number" oninput="document.getElementById('durDisplay').innerText = this.value">
+                    </div>
+                </div>
+
+                <div style="margin-top:12px; display:flex; gap:12px; align-items:center;">
+                    <div>
+                        <label class="small">Tỷ giá INR → VND (tùy chọn)</label>
+                        <input type="number" name="exchange_rate" step="0.01" min="0" class="form-control" value="{{ exchange_value if exchange_value is defined else '287.5' }}">
+                    </div>
+                    <div style="flex:1"></div>
+                    <button id="refreshRate" type="button" class="btn btn-outline-secondary">Lấy tỉ giá mới</button>
+                    <button type="submit" class="cyber-btn">⚡ PHÂN TÍCH NGAY</button>
+                </div>
+            </form>
+
+            <script>
+            // Fetch latest rate from server and update the input and note text
+            document.getElementById('refreshRate').addEventListener('click', function(){
+                const btn = this; btn.disabled = true; btn.innerText = 'Đang lấy...';
+                fetch('/rate').then(r=>r.json()).then(data => {
+                    if (data && data.rate) {
+                        const rate = parseFloat(data.rate);
+                        const input = document.querySelector('input[name=exchange_rate]');
+                        if (input) input.value = rate.toFixed(2);
+                        const note = document.getElementById('rateNote');
+                        if (note) note.innerText = `Tỷ giá tham chiếu: 1 INR = ${rate.toFixed(2)} VND`;
+                    } else if (data && data.error) {
+                        alert('Không thể lấy tỉ giá: ' + data.error);
+                    }
+                }).catch(err => {
+                    console.error(err); alert('Lỗi khi lấy tỉ giá mới.');
+                }).finally(()=>{ btn.disabled = false; btn.innerText = 'Lấy tỉ giá mới'; });
+            });
+            </script>
+
+            {% if show_result %}
+            <div class="result-box glass-panel">
+                <h3>KẾT QUẢ DỰ BÁO</h3>
+                <div class="price-tag">{{ prediction_text }}</div>
+                <div class="advice-tag {{ advice_class }}">{{ advice_text }}</div>
+                <p class="confidence">Độ chính xác mô hình: 96%</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

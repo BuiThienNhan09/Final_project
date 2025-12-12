@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kết quả dự báo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    <div class="container py-4">
+      <h1 class="mb-4">Kết quả dự báo</h1>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="card-title">Giá vé ước tính</h3>
+          <p class="display-6">{{ price_inr }}</p>
+          <p class="lead text-success">Quy đổi sang VNĐ: <strong>{{ price_vnd }}</strong></p>
+          <p class="small text-muted">({{ rate }})</p>
+          <hr>
+          <h5>Thông tin chuyến bay</h5>
+          <ul>
+            {% for k, v in inputs.items() %}
+              <li><strong>{{ k }}</strong>: {{ v }}</li>
+            {% endfor %}
+          </ul>
+          <a href="/" class="btn btn-secondary">Quay lại</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
