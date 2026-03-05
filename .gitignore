@@ -1,0 +1,3 @@
+venv/
+datasets/processed/X_train.npy
+models/flight_price_model_rf.pkl

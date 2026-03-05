@@ -1,0 +1,79 @@
+
+================================================================================
+ENHANCED MODEL TRAINING REPORT - TARGET 80%+ ACCURACY
+================================================================================
+Generated: 2026-01-25 14:18:25
+
+DATASET INFORMATION
+================================================================================
+Total Samples:        41,317
+Training Samples:     33,053
+Testing Samples:      8,264
+Features:             61
+
+BEST MODEL
+================================================================================
+Model Type:           GradientBoosting
+R² Score:             0.9815
+MAE:                  48,434.06 VNĐ
+RMSE:                 119,589.30 VNĐ
+MAPE:                 3.57%
+
+ACCURACY METRICS
+================================================================================
+±5%:                  75.86%
+±10%:                 91.94%
+±15%:                 97.52%
+±20%:                 99.26%
+±25%:                 99.66%
+
+ALL MODELS COMPARISON
+================================================================================
+
+Ridge:
+  Accuracy (±20%): 91.01%
+  R² Score:        0.9119
+  MAE:             134,243.26 VNĐ
+
+Lasso:
+  Accuracy (±20%): 91.31%
+  R² Score:        0.9114
+  MAE:             133,351.75 VNĐ
+
+ElasticNet:
+  Accuracy (±20%): 59.83%
+  R² Score:        0.7258
+  MAE:             261,540.90 VNĐ
+
+GradientBoosting:
+  Accuracy (±20%): 99.26%
+  R² Score:        0.9815
+  MAE:             48,434.06 VNĐ
+
+RandomForest:
+  Accuracy (±20%): 99.02%
+  R² Score:        0.9793
+  MAE:             44,388.92 VNĐ
+
+KEY IMPROVEMENTS IMPLEMENTED
+================================================================================
+✓ Advanced feature engineering (route, temporal, categorical)
+✓ Target encoding with multiple statistics
+✓ Interaction features
+✓ Multiple model comparison
+✓ RobustScaler for outlier handling
+✓ Stratified train-test split
+✓ Optimized hyperparameters
+
+GENERATED FILES
+================================================================================
+💾 models/best_model_gradientboosting.pkl
+💾 models/scaler.pkl
+💾 models/label_encoders.pkl
+💾 models/statistics.pkl
+💾 models/evaluation_results.json
+📊 model_comparison/model_comparison.png
+📊 model_comparison/best_model_predictions.png
+📊 model_comparison/accuracy_thresholds.png
+
+================================================================================

@@ -1,0 +1,644 @@
+/* ============================================================
+   MOBILE RESPONSIVE - FULL SUPPORT
+   AI Flight Price - Responsive for all devices
+   ============================================================ */
+
+/* ============================================================
+   TABLET (768px - 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+    .search-container.compact {
+        max-width: 95%;
+        padding: var(--space-4);
+    }
+    
+    .search-container.compact .search-form-wrapper {
+        padding: var(--space-6);
+    }
+    
+    .form-main-grid {
+        gap: var(--space-5);
+    }
+}
+
+/* ============================================================
+   SMALL TABLET / LARGE PHONE (481px - 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Header */
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-3);
+        padding: var(--space-2) 0;
+    }
+    
+    .nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Hero */
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+        padding: 0 var(--space-4);
+    }
+    
+    /* Hero Models */
+    .hero-models {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-3);
+        padding: 0 var(--space-4);
+    }
+    
+    .hero-model-card {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    /* Form Container */
+    .search-container.compact {
+        width: 100%;
+        max-width: 100%;
+        padding: var(--space-3);
+    }
+    
+    .search-container.compact .search-form-wrapper {
+        padding: var(--space-4);
+        border-radius: var(--radius-lg);
+    }
+    
+    /* Form Header */
+    .form-header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--space-4);
+        padding-bottom: var(--space-4);
+        margin-bottom: var(--space-4);
+    }
+    
+    .form-title {
+        text-align: center;
+    }
+    
+    .form-title h2 {
+        font-size: 1.3rem;
+        justify-content: center;
+    }
+    
+    /* Model Chips */
+    .model-selector-inline {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+    
+    .model-chip {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+    }
+    
+    .model-chip .chip-name {
+        font-size: 0.8rem;
+    }
+    
+    .model-chip .chip-acc {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+    }
+    
+    /* Form Grid */
+    .form-main-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+    
+    /* Locations */
+    .form-locations {
+        padding: var(--space-4);
+    }
+    
+    .location-row {
+        flex-direction: column;
+        gap: var(--space-3);
+    }
+    
+    .location-field {
+        width: 100%;
+    }
+    
+    .swap-btn-mini {
+        align-self: center;
+        transform: rotate(90deg);
+    }
+    
+    /* Fields */
+    .fields-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    /* Bottom Row */
+    .form-bottom-row {
+        flex-direction: column;
+        gap: var(--space-4);
+        padding-top: var(--space-4);
+    }
+    
+    .trip-type-inline {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .search-btn-main {
+        width: 100%;
+    }
+    
+    /* Result Card */
+    .result-card {
+        margin: var(--space-4);
+        padding: var(--space-4);
+    }
+    
+    /* Hide scroll hint on mobile */
+    .scroll-hint {
+        display: none;
+    }
+    
+    /* Slide dots */
+    .slide-dots {
+        right: var(--space-2);
+    }
+}
+
+/* ============================================================
+   PHONE (max-width: 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+    /* Reduce base spacing for mobile */
+    :root {
+        --space-6: 1.25rem;
+        --space-8: 1.5rem;
+        --space-10: 2rem;
+        --space-12: 2.5rem;
+    }
+    
+    /* Header */
+    .header {
+        padding: var(--space-2) 0;
+    }
+    
+    .header-content {
+        padding: 0 var(--space-3);
+    }
+    
+    .logo {
+        gap: var(--space-2);
+    }
+    
+    .logo-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .logo-text h1 {
+        font-size: 1.1rem;
+    }
+    
+    .logo-text span {
+        font-size: 0.7rem;
+    }
+    
+    .nav {
+        gap: var(--space-2);
+    }
+    
+    .nav-link {
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.8rem;
+        gap: var(--space-1);
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+    
+    .nav-link i {
+        font-size: 1rem;
+    }
+    
+    /* Hero */
+    .hero-badge {
+        font-size: 0.75rem;
+        padding: var(--space-1) var(--space-3);
+    }
+    
+    .hero-title {
+        font-size: 1.6rem !important;
+        line-height: 1.3;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem !important;
+    }
+    
+    /* Hero Models */
+    .hero-models {
+        gap: var(--space-2);
+        margin: var(--space-4) 0;
+    }
+    
+    .hero-model-card {
+        padding: var(--space-2) var(--space-3);
+        gap: var(--space-2);
+    }
+    
+    .hero-model-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .hero-model-name {
+        font-size: 0.85rem;
+    }
+    
+    .hero-model-acc {
+        font-size: 0.75rem;
+    }
+    
+    /* Hero Actions */
+    .hero-actions {
+        flex-direction: column;
+        gap: var(--space-3);
+        width: 100%;
+        padding: 0 var(--space-4);
+    }
+    
+    .hero-actions .btn-primary,
+    .hero-actions .btn-secondary {
+        width: 100%;
+        padding: var(--space-3) var(--space-4);
+        font-size: 0.95rem;
+        justify-content: center;
+    }
+    
+    /* Search Container */
+    .search-container.compact {
+        padding: var(--space-2);
+    }
+    
+    .search-container.compact .search-form-wrapper {
+        padding: var(--space-4);
+    }
+    
+    /* Form Header */
+    .form-header-row {
+        gap: var(--space-3);
+        padding-bottom: var(--space-3);
+        margin-bottom: var(--space-4);
+    }
+    
+    .form-title h2 {
+        font-size: 1.2rem;
+    }
+    
+    /* Model Chips - Scrollable on small screens */
+    .model-selector-inline {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: var(--space-2);
+        justify-content: flex-start;
+    }
+    
+    .model-selector-inline::-webkit-scrollbar {
+        display: none;
+    }
+    
+    .model-chip {
+        flex-shrink: 0;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        gap: 6px;
+    }
+    
+    .model-chip i {
+        font-size: 0.9rem;
+    }
+    
+    .model-chip .chip-name {
+        font-size: 0.75rem;
+    }
+    
+    .model-chip .chip-acc {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+    }
+    
+    /* Form Locations */
+    .form-locations {
+        padding: var(--space-3);
+    }
+    
+    .location-field label {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+    }
+    
+    .location-field select {
+        padding: 12px 14px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    .swap-btn-mini {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    /* Form Fields */
+    .field-group label {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+    }
+    
+    .field-group input,
+    .field-group select {
+        padding: 12px 14px;
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Bottom Row */
+    .form-bottom-row {
+        gap: var(--space-3);
+        padding-top: var(--space-4);
+    }
+    
+    .trip-type-inline {
+        gap: var(--space-2);
+    }
+    
+    .trip-chip span {
+        padding: 10px 16px;
+        font-size: 0.85rem;
+        gap: 6px;
+    }
+    
+    /* Search Button */
+    .search-btn-main {
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+    
+    /* Result Section */
+    .result-card {
+        margin: var(--space-3);
+        padding: var(--space-4);
+    }
+    
+    .result-price {
+        font-size: 1.8rem;
+    }
+    
+    .result-details {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+    }
+    
+    /* Error/Success Messages */
+    .error-message,
+    .success-message {
+        font-size: 0.85rem;
+        padding: var(--space-3);
+    }
+    
+    /* Slide Navigation */
+    .slide-dots {
+        right: var(--space-2);
+        gap: var(--space-2);
+    }
+    
+    .slide-dot {
+        width: 8px;
+        height: 8px;
+    }
+    
+    /* Features Section */
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    .feature-card {
+        padding: var(--space-4);
+    }
+    
+    /* Airplane animation - smaller on mobile */
+    .airplane-container {
+        display: none;
+    }
+}
+
+/* ============================================================
+   EXTRA SMALL PHONE (max-width: 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .form-title h2 {
+        font-size: 1.1rem;
+    }
+    
+    .model-chip {
+        padding: 6px 10px;
+    }
+    
+    .model-chip .chip-name {
+        font-size: 0.7rem;
+    }
+    
+    .trip-chip span {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .search-btn-main {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+/* ============================================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger touch targets (minimum 44px) */
+    .model-chip,
+    .trip-chip span,
+    .nav-link,
+    .swap-btn-mini {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .search-btn-main {
+        min-height: 50px;
+    }
+    
+    select,
+    input[type="date"],
+    input[type="text"] {
+        min-height: 48px;
+        font-size: 16px !important; /* Prevent zoom on iOS */
+    }
+    
+    /* Remove hover effects - use active instead */
+    .model-chip:hover,
+    .trip-chip:hover span,
+    .hero-model-card:hover,
+    .search-btn-main:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover {
+        transform: none;
+        box-shadow: inherit;
+    }
+    
+    /* Active states for touch feedback */
+    .model-chip:active,
+    .search-btn-main:active,
+    .btn-primary:active,
+    .btn-secondary:active {
+        transform: scale(0.98);
+        opacity: 0.9;
+    }
+    
+    .trip-chip:active span {
+        transform: scale(0.98);
+    }
+    
+    /* Better tap highlighting */
+    a, button, .model-chip, .trip-chip, select, input {
+        -webkit-tap-highlight-color: rgba(14, 165, 233, 0.2);
+    }
+}
+
+/* ============================================================
+   LANDSCAPE MODE ON PHONES
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .slide {
+        height: auto;
+        min-height: 100vh;
+        padding: var(--space-4) 0;
+    }
+    
+    .slide-content {
+        padding: var(--space-3) 0;
+    }
+    
+    .hero-content {
+        padding: var(--space-2);
+    }
+    
+    .hero-title {
+        font-size: 1.5rem !important;
+        margin-bottom: var(--space-2);
+    }
+    
+    .hero-models {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: var(--space-2) 0;
+    }
+    
+    .hero-model-card {
+        flex: 0 0 auto;
+    }
+    
+    .hero-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .scroll-hint {
+        display: none;
+    }
+    
+    /* Form adjustments for landscape */
+    .form-main-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .form-bottom-row {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    
+    .search-btn-main {
+        width: auto;
+    }
+}
+
+/* ============================================================
+   DARK MODE SUPPORT (Optional - follows system preference)
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+    /* Can add dark mode styles here if needed */
+}
+
+/* ============================================================
+   REDUCED MOTION (Accessibility) - DISABLED FOR TESTING
+   ============================================================ */
+/*
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .cloud,
+    .airplane,
+    .sun-rays {
+        animation: none !important;
+    }
+}
+*/
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    .sky-background,
+    .clouds-layer,
+    .airplane-container,
+    .sun,
+    .scroll-hint,
+    .slide-dots,
+    .nav {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+    }
+    
+    .search-container.compact .search-form-wrapper {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "model_type": "Decision Tree (Tuned)",
+  "best_params": {
+    "max_depth": null,
+    "max_features": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 2,
+    "min_samples_split": 10
+  },
+  "tree_depth": 34,
+  "n_leaves": 5195,
+  "mae": 41569.0498471032,
+  "rmse": 94227.29118516007,
+  "r2_score": 0.9798263038337819,
+  "mape": 3.2108945178728323,
+  "accuracy_10": 91.84245220830587,
+  "accuracy_15": 96.044825313118,
+  "accuracy_20": 98.26961107448912,
+  "train_mae": 23359.962006011036,
+  "train_rmse": 52052.932479034316,
+  "train_r2": 0.993962345034156,
+  "train_acc_20": 99.66799703316498,
+  "val_mae": 40370.117812615244,
+  "val_rmse": 94217.5666088973,
+  "val_r2": 0.9788688498584305,
+  "val_acc_20": 98.25341901466469,
+  "overfit_ratio": 0.5786448807120224,
+  "overfit_r2_diff": 0.015093495175725558,
+  "overfit_acc_diff": 1.4145780185002934,
+  "generalization_gap_mae": 1198.9320344879525,
+  "generalization_gap_acc": 0.016192059824433613
+}

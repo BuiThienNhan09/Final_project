@@ -1,0 +1,409 @@
+/* ============================================================
+   STATISTICS PAGE - MOBILE RESPONSIVE
+   ============================================================ */
+
+/* ============================================================
+   TABLET (768px - 1024px)
+   ============================================================ */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .model-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .model-perf-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================================
+   SMALL TABLET / LARGE PHONE (481px - 768px)
+   ============================================================ */
+@media (max-width: 768px) {
+    /* Hero */
+    .hero {
+        padding: var(--space-6) 0 var(--space-4) !important;
+    }
+    
+    .hero-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem !important;
+    }
+    
+    /* Header */
+    .header-content {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    
+    .nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Main */
+    .main {
+        margin-top: 0;
+    }
+    
+    .main .container {
+        padding: 0 var(--space-3);
+    }
+    
+    /* Tab Navigation */
+    .tab-nav {
+        flex-wrap: wrap;
+        gap: var(--space-1);
+        padding: var(--space-2);
+    }
+    
+    .tab-btn {
+        flex: 1 1 45%;
+        padding: var(--space-3) var(--space-2);
+        font-size: 0.8rem;
+        gap: var(--space-1);
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-3);
+    }
+    
+    .stat-card {
+        padding: var(--space-3);
+        gap: var(--space-2);
+    }
+    
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem;
+    }
+    
+    /* Model Cards */
+    .model-cards-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    .model-overview-card {
+        padding: var(--space-3);
+    }
+    
+    /* Charts */
+    .charts-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    .chart-card {
+        padding: var(--space-3);
+    }
+    
+    .chart-card h3 {
+        font-size: 0.95rem;
+    }
+    
+    /* Model Performance Grid */
+    .model-perf-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-3);
+    }
+    
+    /* Tables */
+    .data-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .data-table {
+        font-size: 0.8rem;
+        min-width: 500px;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: var(--space-2);
+    }
+}
+
+/* ============================================================
+   PHONE (max-width: 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+    /* Hero */
+    .hero {
+        padding: var(--space-4) 0 var(--space-2) !important;
+    }
+    
+    .hero-badge {
+        font-size: 0.7rem;
+    }
+    
+    .hero-title {
+        font-size: 1.4rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem !important;
+        padding: 0 var(--space-2);
+    }
+    
+    /* Header */
+    .header {
+        padding: var(--space-2) 0;
+    }
+    
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+    
+    .logo-text h1 {
+        font-size: 1rem;
+    }
+    
+    .logo-text span {
+        font-size: 0.65rem;
+    }
+    
+    .nav-link {
+        padding: var(--space-2);
+        font-size: 0.75rem;
+    }
+    
+    .nav-link span {
+        display: none;
+    }
+    
+    /* Tab Navigation */
+    .tab-nav {
+        padding: var(--space-1);
+        gap: 4px;
+        margin-bottom: var(--space-3);
+    }
+    
+    .tab-btn {
+        flex: 1 1 48%;
+        padding: var(--space-2);
+        font-size: 0.7rem;
+        gap: 4px;
+    }
+    
+    .tab-btn i {
+        font-size: 0.8rem;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-2);
+        margin-bottom: var(--space-3);
+    }
+    
+    .stat-card {
+        padding: var(--space-2);
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-1);
+    }
+    
+    .stat-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+    
+    .stat-value {
+        font-size: 1.1rem;
+    }
+    
+    .stat-label {
+        font-size: 0.65rem;
+    }
+    
+    /* Model Cards Overview */
+    .model-cards-overview {
+        padding: var(--space-3);
+        margin-bottom: var(--space-3);
+    }
+    
+    .model-cards-overview h3 {
+        font-size: 0.95rem;
+        margin-bottom: var(--space-3);
+    }
+    
+    .model-overview-card {
+        padding: var(--space-3);
+        gap: var(--space-3);
+    }
+    
+    .model-overview-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.1rem;
+    }
+    
+    .model-overview-info h4 {
+        font-size: 0.9rem;
+    }
+    
+    .model-overview-stats {
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+    }
+    
+    /* Charts */
+    .chart-card {
+        padding: var(--space-3);
+        margin-bottom: var(--space-3);
+    }
+    
+    .chart-card h3 {
+        font-size: 0.9rem;
+        margin-bottom: var(--space-2);
+    }
+    
+    /* Model Performance Cards */
+    .model-perf-card {
+        margin-bottom: var(--space-3);
+    }
+    
+    .model-perf-header {
+        padding: var(--space-3);
+        gap: var(--space-2);
+    }
+    
+    .model-perf-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .model-perf-title h4 {
+        font-size: 0.9rem;
+    }
+    
+    .model-perf-body {
+        padding: var(--space-3);
+    }
+    
+    .model-accuracy-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    /* Tables */
+    .data-table {
+        font-size: 0.7rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: var(--space-1) var(--space-2);
+    }
+    
+    /* Filter Buttons */
+    .filter-buttons {
+        flex-wrap: wrap;
+        gap: var(--space-1);
+    }
+    
+    .filter-btn {
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.75rem;
+    }
+}
+
+/* ============================================================
+   EXTRA SMALL PHONE (max-width: 360px)
+   ============================================================ */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 1.2rem !important;
+    }
+    
+    .tab-btn {
+        font-size: 0.65rem;
+        padding: var(--space-2) var(--space-1);
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
+    .model-overview-info h4 {
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================================
+   TOUCH OPTIMIZATIONS FOR STATISTICS
+   ============================================================ */
+@media (hover: none) and (pointer: coarse) {
+    .tab-btn,
+    .filter-btn {
+        min-height: 44px;
+    }
+    
+    .stat-card,
+    .model-overview-card,
+    .chart-card {
+        min-height: auto;
+    }
+    
+    /* Better scrolling for tables */
+    .data-table-container {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Remove hover effects */
+    .tab-btn:hover,
+    .stat-card:hover,
+    .model-overview-card:hover {
+        transform: none;
+    }
+    
+    /* Active states */
+    .tab-btn:active,
+    .filter-btn:active {
+        transform: scale(0.98);
+    }
+}
+
+/* ============================================================
+   LANDSCAPE MODE
+   ============================================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        padding: var(--space-3) 0 !important;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .model-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

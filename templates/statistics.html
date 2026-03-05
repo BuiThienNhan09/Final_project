@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="format-detection" content="telephone=no">
+    <title>Thống Kê & Phân Tích | AI Flight Price</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/statistics.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile-statistics.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        /* Fix for iOS input zoom */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <!-- Sky Background -->
+    <div class="sky-background">
+        <div class="sun"><div class="sun-rays"></div></div>
+        <div class="clouds-layer clouds-far">
+            <div class="cloud cloud-1"><svg viewBox="0 0 200 100" fill="white"><ellipse cx="60" cy="70" rx="50" ry="30"/><ellipse cx="100" cy="50" rx="60" ry="40"/><ellipse cx="150" cy="65" rx="45" ry="28"/></svg></div>
+            <div class="cloud cloud-2"><svg viewBox="0 0 180 90" fill="white"><ellipse cx="50" cy="60" rx="40" ry="25"/><ellipse cx="90" cy="45" rx="50" ry="35"/><ellipse cx="140" cy="55" rx="35" ry="22"/></svg></div>
+        </div>
+        <div class="clouds-layer clouds-medium">
+            <div class="cloud cloud-4"><svg viewBox="0 0 220 110" fill="white"><ellipse cx="70" cy="75" rx="55" ry="32"/><ellipse cx="120" cy="55" rx="65" ry="42"/><ellipse cx="175" cy="70" rx="40" ry="28"/></svg></div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-plane-departure"></i></div>
+                    <div class="logo-text">
+                        <h1>AI Flight Price</h1>
+                        <span>Thống kê & phân tích</span>
+                    </div>
+                </div>
+                <nav class="nav">
+                    <a href="/" class="nav-link"><i class="fas fa-search"></i><span>Dự Đoán Giá</span></a>
+                    <a href="/statistics" class="nav-link active"><i class="fas fa-chart-bar"></i><span>Thống Kê</span></a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-chart-line"></i><span>Analytics</span></div>
+                <h2 class="hero-title">Thống Kê & Phân Tích</h2>
+                <p class="hero-subtitle">So sánh hiệu suất 3 thuật toán: ANN, Linear Regression, Decision Tree</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="loader-plane"><i class="fas fa-plane"></i></div>
+                <p>Đang tải dữ liệu thống kê...</p>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div id="dashboardContent" style="display: none;">
+                <!-- Tab Navigation -->
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="overview"><i class="fas fa-home"></i> Tổng Quan</button>
+                    <button class="tab-btn" data-tab="models"><i class="fas fa-robot"></i> So Sánh Models</button>
+                    <button class="tab-btn" data-tab="training"><i class="fas fa-database"></i> Training Data</button>
+                    <button class="tab-btn" data-tab="history"><i class="fas fa-history"></i> Lịch Sử</button>
+                </div>
+
+                <!-- TAB: Overview -->
+                <div class="tab-content active" id="tab-overview">
+                    <div class="stats-grid">
+                        <div class="stat-card blue">
+                            <div class="stat-icon"><i class="fas fa-database"></i></div>
+                            <div class="stat-info"><span class="stat-value" id="totalTrainingSamples">0</span><span class="stat-label">Training Samples</span></div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon"><i class="fas fa-robot"></i></div>
+                            <div class="stat-info"><span class="stat-value" id="totalModels">3</span><span class="stat-label">Thuật Toán</span></div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="stat-icon"><i class="fas fa-search"></i></div>
+                            <div class="stat-info"><span class="stat-value" id="totalSearches">0</span><span class="stat-label">Lượt Tìm Kiếm</span></div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+                            <div class="stat-info"><span class="stat-value" id="avgPredictedPrice">0</span><span class="stat-label">Giá TB (VNĐ)</span></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Model Cards Overview -->
+                    <div class="model-cards-overview">
+                        <h3><i class="fas fa-trophy"></i> Hiệu Suất Các Thuật Toán</h3>
+                        <div class="model-cards-grid" id="modelCardsGrid">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <div class="charts-row">
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-route"></i> Tuyến Bay Phổ Biến</h3></div><div class="chart-body"><canvas id="overviewRoutesChart"></canvas></div></div>
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-pie-chart"></i> Phân Bố Model Sử Dụng</h3></div><div class="chart-body"><canvas id="modelDistributionChart"></canvas></div></div>
+                    </div>
+                </div>
+
+                <!-- TAB: Models Comparison -->
+                <div class="tab-content" id="tab-models">
+                    <div class="models-comparison">
+                        <!-- Model Performance Cards -->
+                        <div class="model-perf-grid" id="modelPerfGrid">
+                            <!-- ANN -->
+                            <div class="model-perf-card" data-model="ann">
+                                <div class="model-perf-header" style="--model-color: #3b82f6">
+                                    <div class="model-perf-icon"><i class="fas fa-brain"></i></div>
+                                    <div class="model-perf-title">
+                                        <h4>Neural Network (ANN)</h4>
+                                        <span>Deep Learning</span>
+                                    </div>
+                                </div>
+                                <div class="model-perf-body">
+                                    <div class="model-accuracy-circle">
+                                        <svg viewBox="0 0 120 120">
+                                            <circle cx="60" cy="60" r="50" class="bg-circle"/>
+                                            <circle cx="60" cy="60" r="50" class="progress-circle" id="annAccuracyCircle"/>
+                                        </svg>
+                                        <div class="accuracy-text">
+                                            <span class="value" id="annAccuracy">0%</span>
+                                            <span class="label">Accuracy</span>
+                                        </div>
+                                    </div>
+                                    <div class="model-metrics">
+                                        <div class="metric"><span class="metric-label">MAE</span><span class="metric-value" id="annMAE">0</span></div>
+                                        <div class="metric"><span class="metric-label">RMSE</span><span class="metric-value" id="annRMSE">0</span></div>
+                                        <div class="metric"><span class="metric-label">R²</span><span class="metric-value" id="annR2">0</span></div>
+                                    </div>
+                                    <div class="model-usage">
+                                        <span class="usage-label">Lượt sử dụng</span>
+                                        <span class="usage-value" id="annUsage">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Linear Regression -->
+                            <div class="model-perf-card" data-model="linear_regression">
+                                <div class="model-perf-header" style="--model-color: #10b981">
+                                    <div class="model-perf-icon"><i class="fas fa-chart-line"></i></div>
+                                    <div class="model-perf-title">
+                                        <h4>Linear Regression</h4>
+                                        <span>Ridge Regularization</span>
+                                    </div>
+                                </div>
+                                <div class="model-perf-body">
+                                    <div class="model-accuracy-circle">
+                                        <svg viewBox="0 0 120 120">
+                                            <circle cx="60" cy="60" r="50" class="bg-circle"/>
+                                            <circle cx="60" cy="60" r="50" class="progress-circle" id="lrAccuracyCircle"/>
+                                        </svg>
+                                        <div class="accuracy-text">
+                                            <span class="value" id="lrAccuracy">0%</span>
+                                            <span class="label">Accuracy</span>
+                                        </div>
+                                    </div>
+                                    <div class="model-metrics">
+                                        <div class="metric"><span class="metric-label">MAE</span><span class="metric-value" id="lrMAE">0</span></div>
+                                        <div class="metric"><span class="metric-label">RMSE</span><span class="metric-value" id="lrRMSE">0</span></div>
+                                        <div class="metric"><span class="metric-label">R²</span><span class="metric-value" id="lrR2">0</span></div>
+                                    </div>
+                                    <div class="model-usage">
+                                        <span class="usage-label">Lượt sử dụng</span>
+                                        <span class="usage-value" id="lrUsage">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Decision Tree -->
+                            <div class="model-perf-card" data-model="decision_tree">
+                                <div class="model-perf-header" style="--model-color: #f59e0b">
+                                    <div class="model-perf-icon"><i class="fas fa-sitemap"></i></div>
+                                    <div class="model-perf-title">
+                                        <h4>Decision Tree</h4>
+                                        <span>Hyperparameter Tuned</span>
+                                    </div>
+                                </div>
+                                <div class="model-perf-body">
+                                    <div class="model-accuracy-circle">
+                                        <svg viewBox="0 0 120 120">
+                                            <circle cx="60" cy="60" r="50" class="bg-circle"/>
+                                            <circle cx="60" cy="60" r="50" class="progress-circle" id="dtAccuracyCircle"/>
+                                        </svg>
+                                        <div class="accuracy-text">
+                                            <span class="value" id="dtAccuracy">0%</span>
+                                            <span class="label">Accuracy</span>
+                                        </div>
+                                    </div>
+                                    <div class="model-metrics">
+                                        <div class="metric"><span class="metric-label">MAE</span><span class="metric-value" id="dtMAE">0</span></div>
+                                        <div class="metric"><span class="metric-label">RMSE</span><span class="metric-value" id="dtRMSE">0</span></div>
+                                        <div class="metric"><span class="metric-label">R²</span><span class="metric-value" id="dtR2">0</span></div>
+                                    </div>
+                                    <div class="model-usage">
+                                        <span class="usage-label">Lượt sử dụng</span>
+                                        <span class="usage-value" id="dtUsage">0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Comparison Charts -->
+                        <div class="charts-row">
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-bullseye"></i> So Sánh Accuracy</h3></div><div class="chart-body"><canvas id="accuracyCompareChart"></canvas></div></div>
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-chart-bar"></i> So Sánh MAE</h3></div><div class="chart-body"><canvas id="maeCompareChart"></canvas></div></div>
+                        </div>
+                        
+                        <div class="charts-row">
+                            <div class="chart-card full"><div class="chart-header"><h3><i class="fas fa-balance-scale"></i> So Sánh Tổng Quan Các Metrics</h3></div><div class="chart-body tall"><canvas id="radarCompareChart"></canvas></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: Training -->
+                <div class="tab-content" id="tab-training">
+                    <div class="stats-grid small">
+                        <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-plane"></i></div><div class="stat-info"><span class="stat-value" id="trainTotalFlights">0</span><span class="stat-label">Chuyến Bay</span></div></div>
+                        <div class="stat-card"><div class="stat-icon cyan"><i class="fas fa-building"></i></div><div class="stat-info"><span class="stat-value" id="trainNumAirlines">0</span><span class="stat-label">Hãng Bay</span></div></div>
+                        <div class="stat-card"><div class="stat-icon green"><i class="fas fa-map-marker-alt"></i></div><div class="stat-info"><span class="stat-value" id="trainNumRoutes">0</span><span class="stat-label">Tuyến Bay</span></div></div>
+                        <div class="stat-card"><div class="stat-icon purple"><i class="fas fa-dollar-sign"></i></div><div class="stat-info"><span class="stat-value" id="trainAvgPrice">0</span><span class="stat-label">Giá TB</span></div></div>
+                    </div>
+                    <div class="price-distribution"><h3><i class="fas fa-chart-bar"></i> Phân Bố Giá Vé</h3><div class="price-ranges" id="priceRanges"></div></div>
+                    <div class="charts-row">
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-plane"></i> Giá Theo Hãng</h3></div><div class="chart-body"><canvas id="trainAirlinePriceChart"></canvas></div></div>
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-ticket"></i> Phân Bố Hạng Vé</h3></div><div class="chart-body"><canvas id="trainClassChart"></canvas></div></div>
+                    </div>
+                    <div class="charts-row">
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-calendar"></i> Giá Theo Tháng</h3></div><div class="chart-body"><canvas id="trainMonthChart"></canvas></div></div>
+                        <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-route"></i> Top Tuyến Đắt Nhất</h3></div><div class="chart-body"><canvas id="trainTopRoutesChart"></canvas></div></div>
+                    </div>
+                </div>
+
+                <!-- TAB: History -->
+                <div class="tab-content" id="tab-history">
+                    <!-- Model Filter -->
+                    <div class="history-filter">
+                        <label><i class="fas fa-filter"></i> Lọc theo thuật toán:</label>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="all">Tất cả</button>
+                            <button class="filter-btn" data-filter="ann"><i class="fas fa-brain"></i> ANN</button>
+                            <button class="filter-btn" data-filter="linear_regression"><i class="fas fa-chart-line"></i> Linear Reg</button>
+                            <button class="filter-btn" data-filter="decision_tree"><i class="fas fa-sitemap"></i> Decision Tree</button>
+                        </div>
+                    </div>
+                    
+                    <div class="no-data" id="noSearchMessage" style="display: none;">
+                        <i class="fas fa-search"></i>
+                        <h3>Chưa có lịch sử</h3>
+                        <p>Hãy dự đoán giá vé để xem thống kê</p>
+                        <a href="/" class="btn-primary"><i class="fas fa-arrow-right"></i> Bắt đầu</a>
+                    </div>
+                    <div id="searchHistoryContent">
+                        <div class="charts-row">
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-route"></i> Tuyến Được Tìm</h3></div><div class="chart-body"><canvas id="searchRoutesChart"></canvas></div></div>
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-plane"></i> Hãng Bay Phổ Biến</h3></div><div class="chart-body"><canvas id="searchAirlinesChart"></canvas></div></div>
+                        </div>
+                        <div class="charts-row">
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-money-bill"></i> Giá Dự Đoán</h3></div><div class="chart-body"><canvas id="searchPriceChart"></canvas></div></div>
+                            <div class="chart-card"><div class="chart-header"><h3><i class="fas fa-ticket"></i> Hạng Vé</h3></div><div class="chart-body"><canvas id="searchClassChart"></canvas></div></div>
+                        </div>
+                        <div class="chart-card full"><div class="chart-header"><h3><i class="fas fa-calendar"></i> Timeline Tìm Kiếm</h3></div><div class="chart-body tall"><canvas id="searchTimelineChart"></canvas></div></div>
+                        <div class="table-card">
+                            <div class="table-header"><h3><i class="fas fa-history"></i> Tìm Kiếm Gần Đây</h3></div>
+                            <table class="data-table">
+                                <thead><tr><th>Thời gian</th><th>Thuật toán</th><th>Hãng</th><th>Hành trình</th><th>Ngày bay</th><th>Hạng</th><th>Giá</th></tr></thead>
+                                <tbody id="recentSearchesTable"><tr><td colspan="7" class="loading">Đang tải...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 AI Flight Price Predictor</p>
+                <p>Khóa Luận Tốt Nghiệp - Bui Thien Nhan</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/statistics.js') }}"></script>
+</body>
+</html>

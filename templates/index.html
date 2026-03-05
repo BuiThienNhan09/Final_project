@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0ea5e9">
+    <meta name="format-detection" content="telephone=no">
+    <title>Dự Đoán Giá Vé Máy Bay | AI Flight Price</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
+    <style>
+        /* Prevent pull-to-refresh on mobile */
+        html, body {
+            overscroll-behavior-y: none;
+        }
+        /* Safe area for notched phones */
+        body {
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+        /* Fix for iOS input zoom */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+    </style>
+</head>
+<body class="has-slides">
+    <!-- Sky Background -->
+    <div class="sky-background">
+        <div class="sun">
+            <div class="sun-rays"></div>
+        </div>
+        
+        <div class="clouds-layer clouds-far">
+            <div class="cloud cloud-1"><svg viewBox="0 0 200 100" fill="white"><ellipse cx="60" cy="70" rx="50" ry="30"/><ellipse cx="100" cy="50" rx="60" ry="40"/><ellipse cx="150" cy="65" rx="45" ry="28"/></svg></div>
+            <div class="cloud cloud-2"><svg viewBox="0 0 180 90" fill="white"><ellipse cx="50" cy="60" rx="40" ry="25"/><ellipse cx="90" cy="45" rx="50" ry="35"/><ellipse cx="140" cy="55" rx="35" ry="22"/></svg></div>
+        </div>
+        
+        <div class="clouds-layer clouds-medium">
+            <div class="cloud cloud-4"><svg viewBox="0 0 220 110" fill="white"><ellipse cx="70" cy="75" rx="55" ry="32"/><ellipse cx="120" cy="55" rx="65" ry="42"/><ellipse cx="175" cy="70" rx="40" ry="28"/></svg></div>
+        </div>
+        
+        <div class="airplane-container">
+            <div class="airplane">
+                <svg viewBox="0 0 100 50" class="plane-svg">
+                    <ellipse cx="45" cy="25" rx="35" ry="8" fill="#ffffff"/>
+                    <ellipse cx="75" cy="25" rx="12" ry="6" fill="#e0f2fe"/>
+                    <path d="M30 25 L45 10 L55 10 L45 25 L55 40 L45 40 Z" fill="#ffffff"/>
+                    <path d="M10 25 L5 15 L20 20 L20 30 L5 35 Z" fill="#ffffff"/>
+                    <circle cx="55" cy="23" r="2" fill="#0ea5e9"/>
+                    <circle cx="48" cy="23" r="2" fill="#0ea5e9"/>
+                    <circle cx="41" cy="23" r="2" fill="#0ea5e9"/>
+                    <circle cx="34" cy="23" r="2" fill="#0ea5e9"/>
+                    <ellipse cx="40" cy="32" rx="6" ry="3" fill="#f1f5f9"/>
+                </svg>
+                <div class="contrail"></div>
+            </div>
+        </div>
+        
+        <div class="clouds-layer clouds-near">
+            <div class="cloud cloud-6"><svg viewBox="0 0 250 120" fill="white"><ellipse cx="80" cy="85" rx="60" ry="35"/><ellipse cx="140" cy="60" rx="75" ry="48"/><ellipse cx="200" cy="78" rx="45" ry="30"/></svg></div>
+        </div>
+    </div>
+
+    <!-- Navigation Dots -->
+    <nav class="slide-nav" id="slideNav">
+        <button class="nav-dot active" data-slide="0" aria-label="Slide 1"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Slide 2"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Slide 3"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Slide 4"></button>
+    </nav>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+    </div>
+
+    <!-- Main Slides Container -->
+    <main class="slides-container" id="slidesContainer">
+        
+        <!-- ============================================
+             SLIDE 1: HERO
+             ============================================ -->
+        <section class="slide slide-hero" data-slide="0">
+            <header class="header">
+                <div class="container">
+                    <div class="header-content">
+                        <div class="logo">
+                            <div class="logo-icon"><i class="fas fa-plane-departure"></i></div>
+                            <div class="logo-text">
+                                <h1>AI Flight Price</h1>
+                                <span>Dự đoán giá vé thông minh</span>
+                            </div>
+                        </div>
+                        <nav class="nav">
+                            <a href="/" class="nav-link active"><i class="fas fa-search"></i><span>Tìm chuyến bay</span></a>
+                            <a href="/statistics" class="nav-link"><i class="fas fa-chart-bar"></i><span>Thống kê</span></a>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <div class="slide-content">
+                <div class="hero-content animate-item">
+                    <div class="hero-badge"><i class="fas fa-brain"></i><span>Powered by AI</span></div>
+                    <h2 class="hero-title">Khám Phá Giá Vé<br><span class="gradient-text">Tốt Nhất</span></h2>
+                    <p class="hero-subtitle">Công nghệ Machine Learning giúp bạn dự đoán giá vé chính xác</p>
+                    
+                    <!-- Model Badges - Horizontal Cards -->
+                    <div class="hero-models">
+                        {% for key, model in available_models.items() %}
+                        {% if model.available %}
+                        <div class="hero-model-card" style="--model-color: {{ model.color }}">
+                            <div class="hero-model-icon"><i class="fas {{ model.icon }}"></i></div>
+                            <div class="hero-model-info">
+                                <span class="hero-model-name">{{ model.name }}</span>
+                                <span class="hero-model-acc">{{ "%.1f"|format(model.accuracy) }}% chính xác</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <button class="btn-primary" onclick="goToSlide(2)">
+                            <i class="fas fa-search"></i>
+                            <span>Bắt Đầu Tìm Kiếm</span>
+                        </button>
+                        <button class="btn-secondary" onclick="goToSlide(1)">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Tìm Hiểu Thêm</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="scroll-hint animate-item">
+                    <span>Cuộn xuống</span>
+                    <div class="scroll-mouse">
+                        <div class="scroll-wheel"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SLIDE 2: FEATURES
+             ============================================ -->
+        <section class="slide slide-features" data-slide="1">
+            <div class="slide-content">
+                <div class="section-header animate-item">
+                    <span class="section-tag"><i class="fas fa-star"></i> Tính năng</span>
+                    <h2 class="section-title">Tại Sao Chọn Chúng Tôi?</h2>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card animate-item">
+                        <div class="feature-icon blue"><i class="fas fa-brain"></i></div>
+                        <h4>Neural Network</h4>
+                        <p>Mạng nơ-ron sâu với độ chính xác {% if available_models.ann.available %}{{ "%.1f"|format(available_models.ann.accuracy) }}%{% else %}90%+{% endif %}</p>
+                    </div>
+                    <div class="feature-card animate-item">
+                        <div class="feature-icon green"><i class="fas fa-chart-line"></i></div>
+                        <h4>Linear Regression</h4>
+                        <p>Hồi quy Ridge với L2 regularization {% if available_models.linear_regression.available %}({{ "%.1f"|format(available_models.linear_regression.accuracy) }}%){% endif %}</p>
+                    </div>
+                    <div class="feature-card animate-item">
+                        <div class="feature-icon orange"><i class="fas fa-sitemap"></i></div>
+                        <h4>Decision Tree</h4>
+                        <p>Cây quyết định tối ưu {% if available_models.decision_tree.available %}({{ "%.1f"|format(available_models.decision_tree.accuracy) }}%){% endif %}</p>
+                    </div>
+                    <div class="feature-card animate-item">
+                        <div class="feature-icon purple"><i class="fas fa-database"></i></div>
+                        <h4>Dữ Liệu Lớn</h4>
+                        <p>Phân tích hàng nghìn chuyến bay thực tế</p>
+                    </div>
+                </div>
+
+                <div class="cta-section animate-item">
+                    <p>Sẵn sàng khám phá?</p>
+                    <button class="btn-primary" onclick="goToSlide(2)"><i class="fas fa-arrow-right"></i><span>Tiếp tục</span></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SLIDE 3: SEARCH FORM
+             ============================================ -->
+        <section class="slide slide-search" data-slide="2">
+            <div class="slide-content">
+                <div class="search-container compact">
+                    <div class="search-form-wrapper animate-item">
+                        <form id="searchForm" class="search-form">
+                            <!-- Header + Model Selector Row -->
+                            <div class="form-header-row">
+                                <div class="form-title">
+                                    <h2><i class="fas fa-search"></i> Tìm Chuyến Bay</h2>
+                                </div>
+                                <div class="model-selector-inline">
+                                    {% for key, model in available_models.items() %}
+                                    {% if model.available %}
+                                    <label class="model-chip {% if key == 'ann' %}active{% endif %}" data-model="{{ key }}" style="--model-color: {{ model.color }}">
+                                        <input type="radio" name="model" value="{{ key }}" {% if key == 'ann' %}checked{% endif %}>
+                                        <i class="fas {{ model.icon }}"></i>
+                                        <span class="chip-name">{{ model.name }}</span>
+                                        <span class="chip-acc">{{ "%.1f"|format(model.accuracy) }}%</span>
+                                    </label>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- Main Form Grid -->
+                            <div class="form-main-grid">
+                                <!-- Left: Locations -->
+                                <div class="form-locations">
+                                    <div class="location-row">
+                                        <div class="location-field">
+                                            <label><i class="fas fa-plane-departure"></i> Từ</label>
+                                            <select id="origin" name="origin" required>
+                                                <option value="">Chọn điểm đi</option>
+                                                {% for origin in origins %}
+                                                <option value="{{ origin }}">{{ airports.get(origin, origin) }} ({{ origin }})</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <button type="button" class="swap-btn-mini" onclick="swapLocations()">
+                                            <i class="fas fa-exchange-alt"></i>
+                                        </button>
+                                        <div class="location-field">
+                                            <label><i class="fas fa-plane-arrival"></i> Đến</label>
+                                            <select id="destination" name="destination" required>
+                                                <option value="">Chọn điểm đến</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Other fields -->
+                                <div class="form-fields">
+                                    <div class="fields-row">
+                                        <div class="field-group">
+                                            <label><i class="fas fa-calendar-alt"></i> Ngày đi</label>
+                                            <input type="date" id="flight_date" name="flight_date" required>
+                                        </div>
+                                        <div class="field-group" id="return_date_group" style="display: none;">
+                                            <label><i class="fas fa-calendar-check"></i> Ngày về</label>
+                                            <input type="date" id="return_date" name="return_date">
+                                        </div>
+                                        <div class="field-group">
+                                            <label><i class="fas fa-building"></i> Hãng bay</label>
+                                            <select id="airline" name="airline" required>
+                                                <option value="">Chọn hãng</option>
+                                                {% for airline in airlines %}
+                                                <option value="{{ airline }}">{{ airline }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="field-group">
+                                            <label><i class="fas fa-gem"></i> Hạng vé</label>
+                                            <select id="seat_class" name="class" required>
+                                                <option value="">Chọn hạng</option>
+                                                {% for cls in classes %}
+                                                <option value="{{ cls }}">{% if cls == 'Economy' %}Economy{% else %}Business{% endif %}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom: Trip Type + Submit -->
+                            <div class="form-bottom-row">
+                                <div class="trip-type-inline">
+                                    <label class="trip-chip">
+                                        <input type="radio" name="trip_type" value="oneway" checked>
+                                        <span><i class="fas fa-arrow-right"></i> Một chiều</span>
+                                    </label>
+                                    <label class="trip-chip">
+                                        <input type="radio" name="trip_type" value="roundtrip">
+                                        <span><i class="fas fa-exchange-alt"></i> Khứ hồi</span>
+                                    </label>
+                                </div>
+                                <button type="submit" class="search-btn-main" id="searchBtn">
+                                    <span class="btn-text"><i class="fas fa-search"></i> Dự Đoán Giá Vé</span>
+                                    <span class="btn-loading"><i class="fas fa-spinner fa-spin"></i> Đang xử lý...</span>
+                                </button>
+                            </div>
+
+                            <input type="hidden" id="departure_hour" name="departure_hour" value="12">
+                            <input type="hidden" id="arrival_hour" name="arrival_hour" value="14">
+                            <input type="hidden" id="duration" name="duration" value="120">
+                            <input type="hidden" id="stops" name="stops" value="0">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SLIDE 4: RESULTS
+             ============================================ -->
+        <section class="slide slide-results" data-slide="3">
+            <div class="slide-content">
+                <div class="results-wrapper">
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-illustration">
+                            <div class="empty-plane"><i class="fas fa-plane"></i></div>
+                            <div class="empty-clouds"><span></span><span></span><span></span></div>
+                        </div>
+                        <h3>Sẵn sàng bay!</h3>
+                        <p>Nhập thông tin chuyến bay để xem giá dự đoán</p>
+                        <button class="btn-primary" onclick="goToSlide(2)">
+                            <i class="fas fa-search"></i>
+                            <span>Bắt Đầu Tìm Kiếm</span>
+                        </button>
+                    </div>
+
+                    <!-- Result Content -->
+                    <div class="result-content" id="resultContent" style="display: none;">
+                        <div class="result-card animate-item">
+                            <div class="result-header">
+                                <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+                                <div class="result-title">
+                                    <h3>Kết quả dự đoán</h3>
+                                    <p id="modelUsedText">Phân tích từ AI</p>
+                                </div>
+                                <div class="model-badge-result" id="modelBadgeResult">
+                                    <i class="fas fa-brain"></i>
+                                    <span>ANN</span>
+                                </div>
+                            </div>
+
+                            <div class="flight-route">
+                                <div class="route-point origin">
+                                    <span class="point-code" id="originCode">SGN</span>
+                                    <span class="point-time" id="departureTime">12:00</span>
+                                </div>
+                                <div class="route-line">
+                                    <div class="line-track"><div class="line-progress"></div></div>
+                                    <div class="route-plane"><i class="fas fa-plane"></i></div>
+                                    <div class="route-duration"><span id="flightDuration">2h 0m</span><small id="stopsInfo">Bay thẳng</small></div>
+                                </div>
+                                <div class="route-point destination">
+                                    <span class="point-code" id="destinationCode">HAN</span>
+                                    <span class="point-time" id="arrivalTime">14:00</span>
+                                </div>
+                            </div>
+
+                            <div class="flight-info">
+                                <div class="info-item"><i class="fas fa-plane"></i><div><span class="info-label">Hãng bay</span><span class="info-value" id="resultAirline">-</span></div></div>
+                                <div class="info-item"><i class="fas fa-ticket"></i><div><span class="info-label">Hạng vé</span><span class="info-value" id="resultClass">-</span></div></div>
+                                <div class="info-item"><i class="fas fa-calendar"></i><div><span class="info-label">Ngày bay</span><span class="info-value" id="resultDate">-</span></div></div>
+                            </div>
+
+                            <div class="price-display">
+                                <span class="price-label">Giá vé dự đoán</span>
+                                <div class="price-value"><span class="price-amount" id="predictedPrice">0</span><span class="price-currency">VNĐ</span></div>
+                                <span class="price-note">* Giá tham khảo, chưa bao gồm thuế phí</span>
+                                <div class="model-accuracy-note" id="modelAccuracyNote">
+                                    <i class="fas fa-bullseye"></i>
+                                    <span>Độ chính xác model: <strong id="resultModelAccuracy">0%</strong></span>
+                                </div>
+                            </div>
+
+                            <div class="amenities">
+                                <h4><i class="fas fa-star"></i> Tiện ích chuyến bay</h4>
+                                <div class="amenities-grid">
+                                    <div class="amenity-item"><div class="amenity-icon wifi"><i class="fas fa-wifi"></i></div><span class="amenity-label">WiFi</span><span class="amenity-value" id="wifiValue">-</span></div>
+                                    <div class="amenity-item"><div class="amenity-icon meal"><i class="fas fa-utensils"></i></div><span class="amenity-label">Bữa ăn</span><span class="amenity-value" id="mealsValue">-</span></div>
+                                    <div class="amenity-item"><div class="amenity-icon baggage"><i class="fas fa-suitcase-rolling"></i></div><span class="amenity-label">Hành lý</span><span class="amenity-value" id="baggageValue">-</span></div>
+                                </div>
+                            </div>
+
+                            <div class="result-actions">
+                                <button type="button" class="btn-secondary" onclick="searchAgain()"><i class="fas fa-rotate-left"></i>Tìm kiếm mới</button>
+                                <a href="/statistics" class="btn-primary"><i class="fas fa-chart-line"></i>Xem thống kê</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="slide-footer">
+                    <div class="footer-content">
+                        <p>© 2026 AI Flight Price Predictor</p>
+                        <p>Khóa Luận Tốt Nghiệp - Bui Thien Nhan</p>
+                    </div>
+                </footer>
+            </div>
+        </section>
+    </main>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        const airports = JSON.parse('{{ airports | tojson | safe }}');
+        const availableModels = JSON.parse('{{ available_models | tojson | safe }}');
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

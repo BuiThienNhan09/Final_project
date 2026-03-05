@@ -1,0 +1,71 @@
+
+╔══════════════════════════════════════════════════════════════════╗
+║           BÁO CÁO PHÂN TÍCH DỮ LIỆU VÉ MÁY BAY (EDA)             ║
+╚══════════════════════════════════════════════════════════════════╝
+
+1. TỔNG QUAN DỮ LIỆU
+   • Tổng số mẫu:         26,757 dòng
+   • Số features:         13 cột
+   • Kích thước:          7.53 MB
+   • Missing values:      0
+   • Duplicate rows:      1250
+
+2. THỐNG KÊ GIÁ VÉ
+   • Giá TB:              1,363,556 VND
+   • Giá median:          1,024,999 VND
+   • Độ lệch chuẩn:       1,031,804 VND
+   • Giá min:             466,173 VND
+   • Giá max:             19,268,873 VND
+   • Skewness:            4.340
+   • Kurtosis:            34.805
+
+3. HÃNG HÀNG KHÔNG
+   • Số hãng:             5
+   • Hãng lớn nhất:       VietJet Air
+   • Số chuyến:           9,720
+
+4. TUYẾN BAY
+   • Số điểm khởi hành:   13
+   • Số điểm đến:         19
+   • Tuyến phổ biến:      SGN-HAN
+
+5. THỜI GIAN
+   • Thời gian bay TB:    104 phút
+   • Giờ khởi hành TB:    13.0
+   • Tháng có nhiều bay:  4.0
+
+6. HẠNG VÉ
+   • Economy:             25,632 (95.8%)
+   • Business:            1,125 (4.2%)
+
+7. OUTLIERS
+   • Z-score (>3):        500
+   • IQR method:          2864
+
+8. TOP 5 HÃNG BAY (THEO SỐ CHUYẾN)
+   1. VietJet Air: 9,720 chuyến
+   2. Vietnam Airlines: 9,675 chuyến
+   3. Bamboo Airways: 3,658 chuyến
+   4. Pacific Airlines: 1,977 chuyến
+   5. Vietravel Airlines: 1,727 chuyến
+
+9. TOP 5 TUYẾN BAY PHỔ BIẾN
+   1. SGN → HAN: 3,033 chuyến
+   2. HAN → SGN: 2,688 chuyến
+   3. DAD → SGN: 1,770 chuyến
+   4. SGN → DAD: 1,732 chuyến
+   5. DAD → HAN: 1,203 chuyến
+
+10. BIỂU ĐỒ ĐÃ TẠO
+   ✓ 01_price_distribution.png    - Phân phối giá vé
+   ✓ 02_airline_analysis.png       - Phân tích hãng bay
+   ✓ 03_route_analysis.png         - Phân tích tuyến bay
+   ✓ 04_time_analysis.png          - Phân tích thời gian
+   ✓ 05_class_comparison.png       - So sánh hạng ghế
+   ✓ 06_correlation_analysis.png   - Phân tích tương quan
+   ✓ 07_outlier_analysis.png       - Phân tích outliers
+
+╔══════════════════════════════════════════════════════════════════╗
+║                     KẾT THÚC BÁO CÁO EDA                         ║
+╚══════════════════════════════════════════════════════════════════╝
+        

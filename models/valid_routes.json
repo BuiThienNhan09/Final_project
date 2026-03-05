@@ -1,0 +1,103 @@
+{
+  "BANGKOK": [
+    "SGN"
+  ],
+  "VCL": [
+    "SGN"
+  ],
+  "CXR": [
+    "HAN",
+    "SGN"
+  ],
+  "VCA": [
+    "HAN"
+  ],
+  "DAD": [
+    "HAN",
+    "SGN"
+  ],
+  "DLI": [
+    "HAN",
+    "SGN"
+  ],
+  "HAN": [
+    "BANGKOK",
+    "BKK",
+    "CXR",
+    "DAD",
+    "DLI",
+    "HONG KONG",
+    "ICN",
+    "KUALA LUMPUR",
+    "KUL",
+    "NRT",
+    "PQC",
+    "SEOUL",
+    "SGN",
+    "SIN",
+    "SINGAPORE",
+    "TAIPEI",
+    "TOKYO",
+    "TPE",
+    "UIH",
+    "VCA"
+  ],
+  "HPH": [
+    "SGN"
+  ],
+  "HUI": [
+    "SGN"
+  ],
+  "PQC": [
+    "HAN",
+    "SGN"
+  ],
+  "UIH": [
+    "HAN"
+  ],
+  "SEOUL": [
+    "HAN",
+    "SGN"
+  ],
+  "SGN": [
+    "BANGKOK",
+    "BKK",
+    "CXR",
+    "DAD",
+    "DLI",
+    "HAN",
+    "HONG KONG",
+    "HPH",
+    "HUI",
+    "ICN",
+    "JAKARTA",
+    "KUALA LUMPUR",
+    "KUL",
+    "NRT",
+    "PQC",
+    "SEOUL",
+    "SIN",
+    "SINGAPORE",
+    "TAIPEI",
+    "THD",
+    "TOKYO",
+    "TPE",
+    "VCL",
+    "VII"
+  ],
+  "SINGAPORE": [
+    "SGN"
+  ],
+  "TAIPEI": [
+    "SGN"
+  ],
+  "THD": [
+    "SGN"
+  ],
+  "TOKYO": [
+    "SGN"
+  ],
+  "VII": [
+    "SGN"
+  ]
+}
