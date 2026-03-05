@@ -1,0 +1,59 @@
+{
+  "models": {
+    "linear_regression": {
+      "mae": 129588.64752367514,
+      "rmse": 210481.73605023132,
+      "r2_score": 0.8993390795523571,
+      "mape": 10.037814157604789,
+      "accuracy_10": 63.909030982201706,
+      "accuracy_15": 78.21357943309162,
+      "accuracy_20": 86.94792353328938,
+      "overall_score": 82.11848333083248
+    },
+    "decision_tree": {
+      "mae": 75888.16595762524,
+      "rmse": 156909.81905464447,
+      "r2_score": 0.9440587319971432,
+      "mape": 5.824884877110686,
+      "accuracy_10": 81.37771918259723,
+      "accuracy_15": 89.2551087673039,
+      "accuracy_20": 94.5286750164799,
+      "overall_score": 89.41931020249034
+    },
+    "ann": {
+      "mae": 79376.32515861899,
+      "rmse": 120859.948255211,
+      "r2_score": 0.966810793371331,
+      "mape": 7.164679560917746,
+      "accuracy_10": 72.59393539881344,
+      "accuracy_15": 90.8371786420567,
+      "accuracy_20": 98.26961107448912,
+      "overall_score": 91.7381334878132
+    }
+  },
+  "best_model_per_metric": {
+    "lowest_mae": "Decision Tree",
+    "lowest_rmse": "ANN",
+    "highest_r2": "ANN",
+    "lowest_mape": "Decision Tree",
+    "highest_accuracy": "ANN"
+  },
+  "overall_ranking": [
+    {
+      "rank": 1,
+      "model": "ANN",
+      "score": 91.7381334878132
+    },
+    {
+      "rank": 2,
+      "model": "Decision Tree",
+      "score": 89.41931020249034
+    },
+    {
+      "rank": 3,
+      "model": "Linear Reg",
+      "score": 82.11848333083248
+    }
+  ],
+  "generated_at": "2026-03-05 14:47:51"
+}
